@@ -185,4 +185,6 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'host' => env('APP_HOST', 'localhost'),
+
 ];

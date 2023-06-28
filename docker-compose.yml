@@ -48,6 +48,14 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    phpmyadmin:
+        image: 'phpmyadmin:5'
+        links:
+            - mariadb:db
+        ports:
+            - '8080:80'
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
