@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CreateCategoryRequest;
+use App\Http\Requests\Admin\UpdateCategoryRequest;
+use App\Models\Category;
+use Illuminate\Http\Request;
+
+class CategoryController extends Controller
+{
+    public function showIndexPage()
+    {
+        return view('admin.categories.index');
+    }
+
+    public function create(CreateCategoryRequest $request)
+    {
+        $category = Category::create($request->safe()->toArray());
+
+        if ($request->user()->can('viewAny', Category::class)) {
+            return to_route('admin.categories.index');
+        } elseif ($request->user()->can('update', $category)) {
+            return to_route('admin.categories.edit', compact('category'));
+        }
+
+        return redirect()->to('/');
+    }
+
+    public function showCreatePage()
+    {
+        return view('admin.categories.create');
+    }
+
+    public function update(UpdateCategoryRequest $request, Category $category)
+    {
+        $category->update($request->safe()->toArray());
+
+        return to_route('admin.categories.edit', compact('category'));
+    }
+
+    public function showEditPage(Category $category)
+    {
+        return view('admin.categories.edit', compact('category'));
+    }
+
+    public function delete(Request $request, Category $category)
+    {
+        $category->forceDelete();
+
+        if ($request->user()->can('viewAny', Category::class)) {
+            return to_route('admin.users.index');
+        }
+
+        return redirect()->to('/');
+    }
+}

@@ -19,18 +19,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $superAdmin = Role::create(['name' => UserRole::SuperAdmin]);
-        $admin = Role::create(['name' => UserRole::Admin]);
-        $instructor = Role::create(['name' => UserRole::Instructor]);
-        $general = Role::create(['name' => UserRole::User]);
+        $superAdmin = Role::firstOrCreate(['name' => UserRole::SuperAdmin]);
+        $admin = Role::firstOrCreate(['name' => UserRole::Admin]);
+        $instructor = Role::firstOrCreate(['name' => UserRole::Instructor]);
+        $general = Role::firstOrCreate(['name' => UserRole::User]);
 
         foreach (UserPermission::getValues() as $permissionName) {
             Permission::findOrCreate($permissionName);
         }
 
-        $superAdmin->givePermissionTo(Permission::all());
-        $admin->givePermissionTo(Permission::all());
-        $instructor->givePermissionTo(
+        $superAdmin->syncPermissions(Permission::all());
+        $admin->syncPermissions(Permission::all());
+        $instructor->syncPermissions(
             UserPermission::ReadCategories,
             UserPermission::ReadCourses,
             UserPermission::CreateCourses,
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             UserPermission::DeleteCourses,
             UserPermission::LearnCourses,
         );
-        $general->givePermissionTo(
+        $general->syncPermissions(
             UserPermission::ReadCategories,
             UserPermission::ReadCourses,
             UserPermission::LearnCourses,
@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
 
         $user = User::firstOrCreate([
             'id' => 1,
+        ], [
             'name' => 'Super Admin',
             'email' => 'super.admin@gmail.com',
             'password' => Hash::make('password'),

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserPermission;
 use App\Models\Lecture;
 use App\Models\User;
 
@@ -12,15 +13,7 @@ class LecturePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Lecture $lecture): bool
-    {
-        //
+        return $user->hasPermissionTo(UserPermission::ReadLectures);
     }
 
     /**
@@ -28,7 +21,7 @@ class LecturePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo(UserPermission::CreateLectures);
     }
 
     /**
@@ -36,7 +29,7 @@ class LecturePolicy
      */
     public function update(User $user, Lecture $lecture): bool
     {
-        //
+        return $user->hasPermissionTo(UserPermission::UpdateLectures) && $lecture->course->instructors()->whereId($user->id)->exists();
     }
 
     /**
@@ -44,22 +37,6 @@ class LecturePolicy
      */
     public function delete(User $user, Lecture $lecture): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Lecture $lecture): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Lecture $lecture): bool
-    {
-        //
+        return $user->hasPermissionTo(UserPermission::DeleteLectures) && $lecture->course->instructors()->whereId($user->id)->exists();
     }
 }

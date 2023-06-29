@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserPermission;
 use App\Models\Category;
 use App\Models\User;
 
@@ -12,15 +13,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Category $category): bool
-    {
-        //
+        return $user->hasPermissionTo(UserPermission::ReadCategories);
     }
 
     /**
@@ -28,7 +21,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo(UserPermission::CreateCategories);
     }
 
     /**
@@ -36,7 +29,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        //
+        return $user->hasPermissionTo(UserPermission::UpdateCategories);
     }
 
     /**
@@ -44,22 +37,6 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Category $category): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Category $category): bool
-    {
-        //
+        return $user->hasPermissionTo(UserPermission::DeleteCategories);
     }
 }

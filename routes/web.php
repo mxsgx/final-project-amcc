@@ -1,6 +1,7 @@
 <?php
 
-use App\Enums\UserPermission;
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +17,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::domain('admin.'.config('app.host'))->name('admin.')->group(function () {
     Route::prefix('/users')->name('users.')->controller(\App\Http\Controllers\Admin\UserController::class)->group(function () {
-        Route::get('/', 'showIndexPage')->name('index')->middleware(['permission:'.UserPermission::ReadUsers]);
-        Route::post('/', 'create')->name('store')->middleware(['permission:'.UserPermission::CreateUsers]);
-        Route::get('/create', 'showCreatePage')->name('create')->middleware(['permission:'.UserPermission::CreateUsers]);
-        Route::get('/{user}', 'showEditPage')->name('edit')->middleware(['permission:'.UserPermission::UpdateUsers]);
-        Route::patch('/{user}', 'update')->name('update')->middleware(['permission:'.UserPermission::UpdateUsers]);
-        Route::put('/{user}/password', 'changePassword')->name('change-password')->middleware(['permission:'.UserPermission::UpdateUsers]);
-        Route::delete('/{user}', 'delete')->name('delete')->middleware(['permission:'.UserPermission::DeleteUsers]);
+        Route::get('/', 'showIndexPage')->name('index')->middleware(['can:viewAny,'.User::class]);
+        Route::post('/', 'create')->name('store')->middleware(['can:create,'.User::class]);
+        Route::get('/create', 'showCreatePage')->name('create')->middleware(['can:create,'.User::class]);
+        Route::get('/{user}', 'showEditPage')->name('edit')->middleware(['can:update,user']);
+        Route::patch('/{user}', 'update')->name('update')->middleware(['can:update,user']);
+        Route::put('/{user}/password', 'changePassword')->name('change-password')->middleware(['can:update,user']);
+        Route::delete('/{user}', 'delete')->name('delete')->middleware(['can:delete,user']);
+    });
+
+    Route::prefix('/categories')->name('categories.')->controller(\App\Http\Controllers\Admin\CategoryController::class)->group(function () {
+        Route::get('/', 'showIndexPage')->name('index')->middleware(['can:viewAny,'.Category::class]);
+        Route::post('/', 'create')->name('store')->middleware(['can:create,'.Category::class]);
+        Route::get('/create', 'showCreatePage')->name('create')->middleware(['can:create,'.Category::class]);
+        Route::get('/{category}', 'showEditPage')->name('edit')->middleware(['can:update,category']);
+        Route::patch('/{category}', 'update')->name('update')->middleware(['can:update,category']);
+        Route::delete('/{category}', 'delete')->name('delete')->middleware(['can:delete,category']);
     });
 })->middleware(['auth']);
 

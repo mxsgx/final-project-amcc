@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\UserPermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ChangeUserPasswordRequest;
 use App\Http\Requests\Admin\CreateUserRequest;
@@ -34,9 +33,9 @@ class UserController extends Controller
             $user->syncPermissions($request->input('permissions'));
         }
 
-        if ($request->user()->hasPermissionTo(UserPermission::UpdateUsers)) {
+        if ($request->user()->can('update', $user)) {
             return to_route('admin.users.edit', compact('user'));
-        } elseif ($request->user()->hasPermissionTo(UserPermission::ReadUsers)) {
+        } elseif ($request->user()->can('viewAny', User::class)) {
             return to_route('admin.users.index');
         }
 
@@ -89,7 +88,7 @@ class UserController extends Controller
     {
         $user->forceDelete();
 
-        if ($request->user()->hasPermissionTo(UserPermission::ReadUsers)) {
+        if ($request->user()->can('viewAny', User::class)) {
             return to_route('admin.users.index');
         }
 
