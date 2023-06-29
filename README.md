@@ -26,7 +26,7 @@ _Coming soon_
    copy .env.example .env
    ```
    ```shell
-   php artisan generate:key
+   php artisan key:generate
    ```
 
 4. Run migrations and seeder
