@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain('admin.'.config('app.host'))->name('admin.')->group(function () {
+Route::domain('admin.'.config('app.host'))->name('admin.')->middleware(['auth'])->group(function () {
     Route::prefix('/users')->name('users.')->controller(\App\Http\Controllers\Admin\UserController::class)->group(function () {
         Route::get('/', 'showIndexPage')->name('index')->middleware(['can:viewAny,'.User::class]);
         Route::post('/', 'create')->name('store')->middleware(['can:create,'.User::class]);
@@ -34,7 +34,11 @@ Route::domain('admin.'.config('app.host'))->name('admin.')->group(function () {
         Route::patch('/{category}', 'update')->name('update')->middleware(['can:update,category']);
         Route::delete('/{category}', 'delete')->name('delete')->middleware(['can:delete,category']);
     });
-})->middleware(['auth']);
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});
 
 Route::prefix('/auth')->controller(\App\Http\Controllers\AuthController::class)->group(function () {
     Route::middleware(['guest'])->group(function () {
