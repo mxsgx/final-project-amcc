@@ -4,6 +4,53 @@
 
 _Coming soon_
 
+## Requirements
+
+- PHP 8.1+
+- MariaDB 10+ / MySQL 5+
+
+## Setup
+
+1. Clone this repository
+    ```shell
+    git clone https://github.com/mxsgx/final-project-amcc.git
+    ```
+
+2. Install dependencies
+    ```shell
+    composer install
+    ```
+
+3. Configure environment
+    ```shell
+   copy .env.example .env
+   ```
+   ```shell
+   php artisan generate:key
+   ```
+
+4. Run migrations and seeder
+    ```shell
+   php artisan migrate --seed
+    ```
+
+5. Run server
+    ```shell
+   php artisan serve
+    ```
+
+## Code Formatter
+
+```shell
+./vendor/bin/pint
+```
+
+## Tests
+
+```shell
+./vendor/bin/phpunit
+```
+
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
