@@ -1,8 +1,6 @@
 <?php
 
 use App\Enums\UserPermission;
-use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::domain('admin.'.config('app.host'))->name('admin.')->group(function () {
-    Route::prefix('/users')->name('users.')->controller(UsersController::class)->group(function () {
+    Route::prefix('/users')->name('users.')->controller(\App\Http\Controllers\Admin\UserController::class)->group(function () {
         Route::get('/', 'showIndexPage')->name('index')->middleware(['permission:'.UserPermission::ReadUsers]);
         Route::post('/', 'create')->name('store')->middleware(['permission:'.UserPermission::CreateUsers]);
         Route::get('/create', 'showCreatePage')->name('create')->middleware(['permission:'.UserPermission::CreateUsers]);
@@ -28,7 +26,7 @@ Route::domain('admin.'.config('app.host'))->name('admin.')->group(function () {
     });
 })->middleware(['auth']);
 
-Route::prefix('/auth')->controller(AuthController::class)->group(function () {
+Route::prefix('/auth')->controller(\App\Http\Controllers\AuthController::class)->group(function () {
     Route::middleware(['guest'])->group(function () {
         Route::get('/login', 'showLoginPage')->name('auth.login');
         Route::post('/login', 'login');
