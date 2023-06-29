@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
 
 class RegisterRequest extends FormRequest
 {
@@ -28,15 +27,5 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'string', 'confirmed'],
             'agreement' => ['required', 'bool'],
         ];
-    }
-
-    /**
-     * Handle a passed validation attempt.
-     */
-    protected function passedValidation(): void
-    {
-        $this->replace([
-            'password' => Hash::make($this->get('password')),
-        ]);
     }
 }

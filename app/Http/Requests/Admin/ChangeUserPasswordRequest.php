@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
 
 class ChangeUserPasswordRequest extends FormRequest
 {
@@ -25,12 +24,5 @@ class ChangeUserPasswordRequest extends FormRequest
         return [
             'password' => ['required', 'string'],
         ];
-    }
-
-    public function passedValidation(): void
-    {
-        $this->replace([
-            'password' => Hash::make($this->input('password')),
-        ]);
     }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Requests\Admin;
 use App\Enums\UserPermission;
 use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class CreateUserRequest extends FormRequest
@@ -34,12 +33,5 @@ class CreateUserRequest extends FormRequest
             'permissions' => ['nullable', 'required_if:role,null'],
             'permissions.*' => [Rule::in(UserPermission::getValues())],
         ];
-    }
-
-    public function passedValidation(): void
-    {
-        $this->replace([
-            'password' => Hash::make($this->input('password')),
-        ]);
     }
 }
