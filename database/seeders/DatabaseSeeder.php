@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'id' => 1,
         ], [
             'name' => 'Super Admin',
-            'email' => 'super.admin@gmail.com',
+            'email' => 'super.admin@mahaakses.id',
             'password' => Hash::make('password'),
             'remember_token' => Str::random(),
         ]);

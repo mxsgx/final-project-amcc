@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Enums\CourseUserRelation;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Lecture;
@@ -16,8 +17,8 @@ class CourseController extends Controller
 
     public function enrollCourse(Request $request, Course $course)
     {
-        if ($request->user()->learningCourses()->whereId($course->id)->doesntExists()) {
-            $request->user()->learningCourses()->attach($course);
+        if ($request->user()->learningCourses->doesntContain('id', '=', $course->id)) {
+            $request->user()->learningCourses()->attach($course, ['relation' => CourseUserRelation::Student]);
         }
 
         return to_route('course.view', compact('course'));

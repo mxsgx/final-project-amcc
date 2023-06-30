@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CourseUserRelation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -49,7 +50,7 @@ class User extends Authenticatable
      */
     public function learningCourses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class)->using(StudentCourse::class);
+        return $this->belongsToMany(Course::class)->wherePivot('relation', '=', CourseUserRelation::Student);
     }
 
     /**
@@ -57,6 +58,6 @@ class User extends Authenticatable
      */
     public function teachingCourses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class)->using(InstructorCourse::class);
+        return $this->belongsToMany(Course::class)->wherePivot('relation', '=', CourseUserRelation::Instructor);
     }
 }

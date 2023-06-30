@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class LectureController extends Controller
 {
-    public function showIndexPage(Course $course)
+    public function showIndexPage()
     {
         return view('instructor.lectures.index');
     }
@@ -29,7 +29,7 @@ class LectureController extends Controller
         return to_route('root');
     }
 
-    public function showCreatePage(Course $course)
+    public function showCreatePage()
     {
         return view('instructor.lectures.create');
     }

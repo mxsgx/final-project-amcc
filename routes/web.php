@@ -51,7 +51,7 @@ Route::domain('instructor.'.config('app.host'))->name('instructor.')->middleware
             Route::delete('/{course}', 'delete')->name('delete')->middleware(['can:delete,course']);
         });
 
-        Route::prefix('/{course}/lectures')->name('lectures.')->controller(\App\Http\Controllers\Instructor\LectureController::class)->middleware(['can:update,course'])->group(function () {
+        Route::prefix('/{course}/lectures')->name('lectures.')->controller(\App\Http\Controllers\Instructor\LectureController::class)->scopeBindings()->group(function () {
             Route::get('/', 'showIndexPage')->name('index')->middleware(['can:viewAny,'.Lecture::class]);
             Route::post('/', 'create')->name('store')->middleware(['can:create,'.Lecture::class]);
             Route::get('/create', 'showCreatePage')->name('create')->middleware(['can:create,'.Lecture::class]);
@@ -80,10 +80,13 @@ Route::prefix('/auth')->controller(\App\Http\Controllers\AuthController::class)-
 Route::prefix('/course/{course}')->name('course.')->group(function () {
     Route::get('/', [\App\Http\Controllers\CourseController::class, 'showViewPage'])->name('view');
 
-    Route::controller(\App\Http\Controllers\Student\CourseController::class)->middleware(['auth', 'can:learn,course'])->group(function () {
-        Route::post('/enroll', 'enrollCourse')->name('enroll');
-        Route::get('/learn', 'startLearningCourse')->name('learn.start');
-        Route::get('/learn/lecture/{lecture}', 'learnCourse')->name('learn.lecture');
+    Route::controller(\App\Http\Controllers\Student\CourseController::class)->middleware(['auth'])->group(function () {
+        Route::post('/enroll', 'enrollCourse')->name('enroll')->middleware(['can:enroll,course']);
+
+        Route::prefix('/learn')->name('learn.')->middleware(['can:learn,course'])->group(function () {
+            Route::get('/', 'startLearningCourse')->name('start');
+            Route::get('/{lecture}', 'learnCourse')->name('lecture');
+        });
     });
 });
 

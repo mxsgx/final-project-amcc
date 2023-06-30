@@ -29,7 +29,7 @@ class LecturePolicy
      */
     public function update(User $user, Lecture $lecture): bool
     {
-        return $user->hasPermissionTo(UserPermission::UpdateLectures) && $lecture->course->instructors()->whereId($user->id)->exists();
+        return $user->hasPermissionTo(UserPermission::UpdateLectures) && $lecture->course->instructors->contains('id', '=', $user->id);
     }
 
     /**
@@ -37,6 +37,6 @@ class LecturePolicy
      */
     public function delete(User $user, Lecture $lecture): bool
     {
-        return $user->hasPermissionTo(UserPermission::DeleteLectures) && $lecture->course->instructors()->whereId($user->id)->exists();
+        return $user->hasPermissionTo(UserPermission::DeleteLectures) && $lecture->course->instructors->contains('id', '=', $user->id);
     }
 }
