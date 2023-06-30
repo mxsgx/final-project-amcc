@@ -4,12 +4,14 @@
 
 _Coming soon_
 
-## Requirements
+## Setup
+
+### Local
+
+#### Requirements
 
 - PHP 8.1+
 - MariaDB 10+ / MySQL 5+
-
-## Setup
 
 1. Clone this repository
     ```shell
@@ -31,13 +33,31 @@ _Coming soon_
 
 4. Run migrations and seeder
     ```shell
-   php artisan migrate --seed
+    php artisan migrate --seed
     ```
 
 5. Run server
     ```shell
-   php artisan serve
+    php artisan serve
     ```
+
+### Laravel Sail
+
+#### Requirements
+
+- Docker 24+
+
+1. Clone this repository
+    ```shell
+    git clone https://github.com/mxsgx/final-project-amcc.git
+    ```
+
+2. Run sail
+    ```shell
+    ./vendor/bin/sail up -d
+    ```
+
+Please see [Laravel Sail documentation](https://laravel.com/docs/10.x/sail) for more information.
 
 ## Code Formatter
 
@@ -45,10 +65,22 @@ _Coming soon_
 ./vendor/bin/pint
 ```
 
+or
+
+```shell
+./vendor/bin/sail pint
+```
+
 ## Tests
 
 ```shell
 ./vendor/bin/phpunit
+```
+
+or
+
+```shell
+./vendor/bin/sail test
 ```
 
 ## License
