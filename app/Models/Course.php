@@ -15,7 +15,7 @@ class Course extends Model
      */
     protected $fillable = [
         'title',
-        'summary',
+        'subtitle',
         'description',
     ];
 

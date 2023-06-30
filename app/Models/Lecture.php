@@ -15,6 +15,8 @@ class Lecture extends Model
     protected $fillable = [
         'title',
         'summary',
+        'content',
+        'course_id',
     ];
 
     public function course(): BelongsTo

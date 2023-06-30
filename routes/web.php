@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Course;
+use App\Models\Lecture;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -35,9 +37,31 @@ Route::domain('admin.'.config('app.host'))->name('admin.')->middleware(['auth'])
         Route::delete('/{category}', 'delete')->name('delete')->middleware(['can:delete,category']);
     });
 
-    Route::get('/', function () {
-        return view('welcome');
+    Route::redirect('/', '/users')->name('root');
+});
+
+Route::domain('instructor.'.config('app.host'))->name('instructor.')->middleware(['auth'])->group(function () {
+    Route::prefix('/courses')->name('courses.')->group(function () {
+        Route::controller(\App\Http\Controllers\Instructor\CourseController::class)->group(function () {
+            Route::get('/', 'showIndexPage')->name('index')->middleware(['can:viewAny,'.Course::class]);
+            Route::post('/', 'create')->name('store')->middleware(['can:create,'.Course::class]);
+            Route::get('/create', 'showCreatePage')->name('create')->middleware(['can:create,'.Course::class]);
+            Route::get('/{course}', 'showEditPage')->name('edit')->middleware(['can:update,course']);
+            Route::patch('/{course}', 'update')->name('update')->middleware(['can:update,course']);
+            Route::delete('/{course}', 'delete')->name('delete')->middleware(['can:delete,course']);
+        });
+
+        Route::prefix('/{course}/lectures')->name('lectures.')->controller(\App\Http\Controllers\Instructor\LectureController::class)->middleware(['can:update,course'])->group(function () {
+            Route::get('/', 'showIndexPage')->name('index')->middleware(['can:viewAny,'.Lecture::class]);
+            Route::post('/', 'create')->name('store')->middleware(['can:create,'.Lecture::class]);
+            Route::get('/create', 'showCreatePage')->name('create')->middleware(['can:create,'.Lecture::class]);
+            Route::get('/{lecture}', 'showEditPage')->name('edit')->middleware(['can:update,lecture']);
+            Route::patch('/{lecture}', 'update')->name('update')->middleware(['can:update,lecture']);
+            Route::delete('/{lecture}', 'delete')->name('delete')->middleware(['can:delete,lecture']);
+        });
     });
+
+    Route::redirect('/', '/courses')->name('root');
 });
 
 Route::prefix('/auth')->controller(\App\Http\Controllers\AuthController::class)->group(function () {
@@ -49,8 +73,26 @@ Route::prefix('/auth')->controller(\App\Http\Controllers\AuthController::class)-
     });
 
     Route::post('/logout', 'logout')->name('auth.logout');
+
+    Route::redirect('/', '/auth/login')->name('root');
+});
+
+Route::prefix('/course/{course}')->name('course.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\CourseController::class, 'showViewPage'])->name('view');
+
+    Route::controller(\App\Http\Controllers\Student\CourseController::class)->middleware(['auth', 'can:learn,course'])->group(function () {
+        Route::post('/enroll', 'enrollCourse')->name('enroll');
+        Route::get('/learn', 'startLearningCourse')->name('learn.start');
+        Route::get('/learn/lecture/{lecture}', 'learnCourse')->name('learn.lecture');
+    });
+});
+
+Route::get('/my-courses', [\App\Http\Controllers\Student\CourseController::class, 'showIndexPage'])->name('my-courses')->middleware(['auth']);
+
+Route::prefix('/courses')->name('courses.')->controller(\App\Http\Controllers\CourseController::class)->group(function () {
+    Route::get('/', 'showIndexPage')->name('index');
 });
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('root');

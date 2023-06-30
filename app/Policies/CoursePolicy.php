@@ -39,4 +39,14 @@ class CoursePolicy
     {
         return $user->hasPermissionTo(UserPermission::DeleteCourses) && $course->instructors()->whereId($user->id)->exists();
     }
+
+    public function enroll(User $user, Course $course)
+    {
+        return $user->hasPermissionTo(UserPermission::LearnCourses) && $user->learningCourses()->whereId($course->id)->doesntExist();
+    }
+
+    public function learn(User $user, Course $course): bool
+    {
+        return $user->hasPermissionTo(UserPermission::LearnCourses) && $user->learningCourses()->whereId($course->id)->exists();
+    }
 }

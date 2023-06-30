@@ -14,5 +14,5 @@ final class UserRole extends Enum
 
     const Instructor = 'instructor';
 
-    const User = 'user';
+    const Student = 'student';
 }

@@ -19,13 +19,13 @@ class CategoryController extends Controller
     {
         $category = Category::create($request->safe()->toArray());
 
-        if ($request->user()->can('viewAny', Category::class)) {
-            return to_route('admin.categories.index');
-        } elseif ($request->user()->can('update', $category)) {
+        if ($request->user()->can('update', $category)) {
             return to_route('admin.categories.edit', compact('category'));
+        } elseif ($request->user()->can('viewAny', Category::class)) {
+            return to_route('admin.categories.index');
         }
 
-        return redirect()->to('/');
+        return to_route('root');
     }
 
     public function showCreatePage()
@@ -53,6 +53,6 @@ class CategoryController extends Controller
             return to_route('admin.users.index');
         }
 
-        return redirect()->to('/');
+        return to_route('root');
     }
 }

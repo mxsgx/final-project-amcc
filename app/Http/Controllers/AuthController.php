@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
@@ -44,6 +45,8 @@ class AuthController extends Controller
         $createdUser = User::create($request->safe()->toArray());
 
         event(new Registered($createdUser));
+
+        $createdUser->assignRole(UserRole::Student);
 
         Auth::login($createdUser);
 

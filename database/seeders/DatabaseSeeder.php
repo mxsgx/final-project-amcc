@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $superAdmin = Role::firstOrCreate(['name' => UserRole::SuperAdmin]);
         $admin = Role::firstOrCreate(['name' => UserRole::Admin]);
         $instructor = Role::firstOrCreate(['name' => UserRole::Instructor]);
-        $general = Role::firstOrCreate(['name' => UserRole::User]);
+        $student = Role::firstOrCreate(['name' => UserRole::Student]);
 
         foreach (UserPermission::getValues() as $permissionName) {
             Permission::findOrCreate($permissionName);
@@ -38,9 +38,7 @@ class DatabaseSeeder extends Seeder
             UserPermission::DeleteCourses,
             UserPermission::LearnCourses,
         );
-        $general->syncPermissions(
-            UserPermission::ReadCategories,
-            UserPermission::ReadCourses,
+        $student->syncPermissions(
             UserPermission::LearnCourses,
         );
 

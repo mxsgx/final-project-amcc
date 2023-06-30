@@ -47,15 +47,15 @@ class User extends Authenticatable
     /**
      * The courses that belong to user.
      */
-    public function learnings(): BelongsToMany
+    public function learningCourses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class)->using(UserCourse::class);
+        return $this->belongsToMany(Course::class)->using(StudentCourse::class);
     }
 
     /**
      * The courses that belong to instructor.
      */
-    public function courses(): BelongsToMany
+    public function teachingCourses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class)->using(InstructorCourse::class);
     }

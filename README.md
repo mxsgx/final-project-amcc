@@ -23,11 +23,11 @@ _Coming soon_
 
 3. Configure environment
     ```shell
-   copy .env.example .env
-   ```
-   ```shell
-   php artisan key:generate
-   ```
+    copy .env.example .env
+    ```
+    ```shell
+    php artisan key:generate
+    ```
 
 4. Run migrations and seeder
     ```shell

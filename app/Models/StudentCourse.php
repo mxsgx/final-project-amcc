@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class UserCourse extends Pivot
+class StudentCourse extends Pivot
 {
     //
 }
