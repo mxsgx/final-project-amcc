@@ -19,10 +19,16 @@ class Course extends Model
      */
     protected $fillable = [
         'title',
+        'slug',
         'subtitle',
         'description',
         'thumbnail',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     public function instructors(): BelongsToMany
     {
@@ -37,5 +43,12 @@ class Course extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Course $course) {
+            $course->lectures->each(fn (Lecture $lecture) => $lecture->delete());
+        });
     }
 }

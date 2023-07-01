@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
             UserPermission::LearnCourses,
         );
 
-        $user = User::firstOrCreate([
+        $superAdminUser = User::firstOrCreate([
             'id' => 1,
         ], [
             'name' => 'Super Admin',
@@ -54,7 +54,18 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(),
         ]);
 
-        $user->syncRoles(UserRole::SuperAdmin);
+        $superAdminUser->syncRoles(UserRole::SuperAdmin);
+
+        $adminUser = User::firstOrCreate([
+            'id' => 2,
+        ], [
+            'name' => 'Admin',
+            'email' => 'admin@mahaakses.id',
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(),
+        ]);
+
+        $adminUser->syncRoles(UserRole::Admin);
 
         $categories = [
             [
@@ -80,6 +91,8 @@ class DatabaseSeeder extends Seeder
             ], $category);
         }
 
-        Course::factory(50)->hasAttached(User::factory(1), ['relation' => CourseUserRelation::Instructor], 'instructors')->hasAttached(Category::factory(1), relationship: 'categories')->hasLectures(20)->create();
+        Course::factory(50)->hasAttached(User::factory(1)->afterCreating(function (User $user) {
+            $user->assignRole(UserRole::Instructor);
+        }), ['relation' => CourseUserRelation::Instructor], 'instructors')->hasAttached(Category::factory(1), relationship: 'categories')->hasLectures(20)->create();
     }
 }

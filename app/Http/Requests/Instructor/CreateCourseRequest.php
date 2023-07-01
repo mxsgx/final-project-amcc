@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Instructor;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class CreateCourseRequest extends FormRequest
 {
@@ -23,9 +24,17 @@ class CreateCourseRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
+            'slug' => ['nullable', 'unique:App\Models\Course'],
             'subtitle' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'thumbnail' => ['nullable', 'image'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'slug' => Str::slug($this->input('title')),
+        ]);
     }
 }

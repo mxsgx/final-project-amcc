@@ -6,15 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ChangeUserPasswordRequest;
 use App\Http\Requests\Admin\CreateUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
-    public function showIndexPage()
+    public function showIndexPage(Request $request)
     {
-        return view('admin.users.index');
+        $users = User::paginate();
+
+        return view('admin.users.index', compact('users'));
     }
 
     public function create(CreateUserRequest $request)
@@ -86,6 +89,8 @@ class UserController extends Controller
 
     public function delete(Request $request, User $user)
     {
+        $user->learningCourses()->detach();
+        $user->teachingCourses->each(fn (Course $course) => $course->delete());
         $user->forceDelete();
 
         if ($request->user()->can('viewAny', User::class)) {

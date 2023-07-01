@@ -33,4 +33,12 @@ class Category extends Model
     {
         return $this->belongsToMany(Course::class);
     }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Category $category) {
+            $category->children->each(fn (Category $child) => $child->delete());
+            $category->courses->each(fn (Course $course) => $course->delete());
+        });
+    }
 }

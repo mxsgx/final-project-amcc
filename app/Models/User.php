@@ -60,4 +60,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Course::class)->wherePivot('relation', '=', CourseUserRelation::Instructor);
     }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (User $user) {
+            $user->teachingCourses->each(fn (Course $course) => $course->delete());
+        });
+    }
 }
