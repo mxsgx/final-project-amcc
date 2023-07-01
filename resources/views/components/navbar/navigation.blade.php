@@ -51,18 +51,20 @@
         class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-black lg:mx-3 md:text-center"
     >Help</a
     >
-    @hasanyrole([\App\Enums\UserRole::SuperAdmin, \App\Enums\UserRole::Admin])
-    <a
-        href="{{ route('admin.root') }}"
-        class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-black lg:mx-3 md:text-center"
-    >
-        Admin
-    </a>
-    @endhasanyrole
-    <a
-        href="{{ route('my-courses') }}"
-        class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-black lg:mx-3 md:text-center"
-    >
-        My Courses
-    </a>
+    @auth
+        @hasanyrole([\App\Enums\UserRole::SuperAdmin, \App\Enums\UserRole::Admin])
+        <a
+            href="{{ route('admin.root') }}"
+            class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-black lg:mx-3 md:text-center"
+        >
+            Admin
+        </a>
+        @endhasanyrole
+        <a
+            href="{{ route('my-courses') }}"
+            class="inline-block w-full py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-black lg:mx-3 md:text-center"
+        >
+            My Courses
+        </a>
+    @endauth
 </div>
