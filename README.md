@@ -25,7 +25,7 @@ _Coming soon_
 
 3. Configure environment
     ```shell
-    copy .env.example .env
+    cp .env.example .env
     ```
     ```shell
     php artisan key:generate
@@ -52,9 +52,27 @@ _Coming soon_
     git clone https://github.com/mxsgx/final-project-amcc.git
     ```
 
-2. Run sail
+2. Install dependencies
+    ```shell
+    docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php82-composer:latest composer install --ignore-platform-reqs
+    ```
+
+3. Configure environment
+    ```shell
+    cp .env.sail .env
+    ```
+    ```shell
+    docker run --rm -u "$(id -u):$(id -g)" -v "$(pwd):/var/www/html" -w /var/www/html laravelsail/php82-composer:latest php artisan key:generate
+    ```
+
+4. Run sail
     ```shell
     ./vendor/bin/sail up -d
+    ```
+
+5. Run migrations and seeder
+    ```shell
+    ./vendor/bin/sail artisan migrate:fresh --seed
     ```
 
 Please see [Laravel Sail documentation](https://laravel.com/docs/10.x/sail) for more information.
