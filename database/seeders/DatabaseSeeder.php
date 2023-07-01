@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Enums\UserPermission;
 use App\Enums\UserRole;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -52,5 +53,29 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user->syncRoles(UserRole::SuperAdmin);
+
+        $categories = [
+            [
+                'name' => 'HTML',
+                'slug' => 'html',
+            ],
+            [
+                'name' => 'CSS',
+                'slug' => 'css',
+            ],
+            [
+                'name' => 'JavaScript',
+                'slug' => 'javascript',
+            ],
+            [
+                'name' => 'PHP',
+                'slug' => 'php',
+            ],
+        ];
+        foreach ($categories as $category) {
+            Category::firstOrCreate([
+                'slug' => $category['slug'],
+            ], $category);
+        }
     }
 }
