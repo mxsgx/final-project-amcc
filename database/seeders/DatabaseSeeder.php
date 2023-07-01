@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\CourseUserRelation;
 use App\Enums\UserPermission;
 use App\Enums\UserRole;
 use App\Models\Category;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -77,5 +79,7 @@ class DatabaseSeeder extends Seeder
                 'slug' => $category['slug'],
             ], $category);
         }
+
+        Course::factory(50)->hasAttached(User::factory(1), ['relation' => CourseUserRelation::Instructor], 'instructors')->hasAttached(Category::factory(1), relationship: 'categories')->hasLectures(20)->create();
     }
 }

@@ -17,9 +17,9 @@ class LectureFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->title,
+            'title' => $this->faker->sentence,
             'summary' => $this->faker->sentence,
-            'content' => $this->faker->sentence,
+            'content' => $this->faker->paragraph,
         ];
     }
 }
