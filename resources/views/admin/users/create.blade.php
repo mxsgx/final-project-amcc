@@ -22,6 +22,9 @@
                             <div class="mt-2">
                                 <input type="text" name="name" id="name" autocomplete="given-name" required
                                        class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md @error('name') border-red-500 @else border-neutral-300 @enderror ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                                @error('name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -31,6 +34,9 @@
                             <div class="mt-2">
                                 <input id="email" name="email" type="email" autocomplete="email" required
                                        class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md @error('email') border-red-500 @else border-neutral-300 @enderror ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                                @error('email')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -41,6 +47,9 @@
                                 <input type="password" name="password" id="password" autocomplete="current-password"
                                        required
                                        class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md @error('password') border-red-500 @else border-neutral-300 @enderror ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                                @error('password')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -49,6 +58,10 @@
                 <div class="border-b border-gray-900/10 pb-12">
                     <h2 class="text-base font-semibold leading-7 text-gray-900">Roles and Permissions</h2>
                     <p class="mt-1 text-sm leading-6 text-gray-600">This section will give user role or permissions.</p>
+
+                    @error('role')
+                    <span class="text-red-500 text-sm my-4">{{ $message }}</span>
+                    @enderror
 
                     <div class="mt-10 space-y-10">
                         <fieldset>

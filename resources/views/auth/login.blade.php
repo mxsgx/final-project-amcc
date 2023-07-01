@@ -22,6 +22,9 @@
                         <div class="mt-2">
                             <input id="email" name="email" type="email" autocomplete="email" required
                                    class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md @error('email') border-red-500 @else border-neutral-300 @enderror ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                            @error('email')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
