@@ -12,7 +12,7 @@
                     class="mb-2 text-base font-medium tracking-tight text-rose-500 uppercase"
                     data-primary="rose-500"
                 >
-                    Our customers love our product
+                    Our customers love our course
                 </p>
                 <h2
                     class="text-4xl font-extrabold leading-10 tracking-tight text-gray-900 sm:text-5xl sm:leading-none md:text-6xl lg:text-5xl xl:text-6xl"

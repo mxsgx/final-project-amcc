@@ -94,6 +94,23 @@
             @endif
 
             <h3 class="text-3xl text-black text-left font-extrabold mb-8">Instructors</h3>
+
+            @foreach($course->instructors as $instructor)
+
+                <blockquote
+                    class="flex items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow"
+                    data-rounded="rounded-lg" data-rounded-max="rounded-full">
+                    <img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full"
+                         src="https://placehold.co/512?font=roboto&text={{ str($instructor->name)->substr(0, 1) }}"
+                         alt="">
+                    <div class="flex flex-col pr-10">
+                        <h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-800 truncate sm:text-base lg:text-sm lg:text-base">
+                            {{ $instructor->name }}
+                        </h3>
+                        <p class="mt-1 text-sm leading-5 text-gray-500 truncate"></p>
+                    </div>
+                </blockquote>
+            @endforeach
         </div>
     </section>
 

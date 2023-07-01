@@ -54,5 +54,7 @@
 
     <x-home.testimonials/>
 
+    <x-home.faq/>
+
     <x-footer/>
 </x-layouts.base>

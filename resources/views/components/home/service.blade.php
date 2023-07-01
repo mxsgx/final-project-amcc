@@ -9,7 +9,7 @@
             Learn Your Favorite Tech.
         </h2>
         <p class="mt-4 text-gray-500 text-base sm:text-xl lg:text-2xl">
-            We've built integrations with some of your favorite services.<br
+            We've made courses with some of your favorite languages.<br
                 class="lg:hidden hidden sm:block"
             />
             Check'em out below 👇
