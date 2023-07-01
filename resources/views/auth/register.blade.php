@@ -1,0 +1,104 @@
+<x-layouts.base>
+    <x-slot:title>Sign Up - {{ config('app.name') }}</x-slot:title>
+    <div class="h-screen">
+        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                <a href="{{ route('root') }}">
+                    <img class="mx-auto h-10 w-auto"
+                         src="https://tailwindui.com/img/logos/mark.svg?color=rose&shade=500"
+                         alt="{{ config('app.name') }}">
+                </a>
+                <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create your
+                    account</h2>
+            </div>
+
+            <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form class="space-y-4" action="{{ route('auth.register') }}" method="POST">
+                    <div>
+                        <label for="name" class="block text-md font-medium leading-6 text-gray-900">
+                            Full name
+                        </label>
+                        <div class="mt-2">
+                            <input id="name" name="name" type="text"
+                                   class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md @error('name') border-red-500 @else border-neutral-300 @enderror ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                        @error('name')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-md font-medium leading-6 text-gray-900">
+                            Email address
+                        </label>
+                        <div class="mt-2">
+                            <input id="email" name="email" type="email" autocomplete="email" required
+                                   class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md @error('email') border-red-500 @else border-neutral-300 @enderror ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                        @error('name')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <label
+                                for="password"
+                                class="block text-md font-medium leading-6 text-gray-900"
+                            >
+                                Password
+                            </label>
+                        </div>
+                        <div class="mt-2">
+                            <input id="password" name="password" type="password" autocomplete="current-password"
+                                   required
+                                   class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md @error('password') border-red-500 @else border-neutral-300 @enderror ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                        @error('password')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <label
+                                for="password-confirmation"
+                                class="block text-md font-medium leading-6 text-gray-900"
+                            >
+                                Confirm password
+                            </label>
+                        </div>
+                        <div class="mt-2">
+                            <input id="password-confirmation" name="password_confirmation" type="password"
+                                   autocomplete="current-password"
+                                   required
+                                   class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md border-neutral-300 ring-offset-background placeholder:text-neutral-500 focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-400 disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                    </div>
+
+                    <div>
+                        @csrf
+                        <button type="submit"
+                                class="inline-flex items-center justify-center w-full h-10 px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-200 rounded-md bg-rose-500 hover:bg-rose-600 focus:ring-2 focus:ring-offset-2 focus:ring-rose-600 focus:shadow-outline focus:outline-none">
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+
+                <p class="mt-10 text-center text-sm text-gray-500">
+                    Already have account?
+                    <a href="{{ route('auth.login') }}"
+                       class="relative font-semibold leading-6 text-rose-500 hover:text-rose-600 group">
+                        <span>Sign in now</span>
+                        <span
+                            class="absolute bottom-0 left-0 w-0 group-hover:w-full ease-out duration-300 h-0.5 bg-rose-500"></span>
+                    </a>
+                </p>
+                <p class="px-8 mt-1 text-sm text-center text-neutral-500">By continuing, you agree to our
+                    <a class="underline underline-offset-4 hover:text-primary" href="#">Terms</a> and <a
+                        class="underline underline-offset-4 hover:text-primary" href="#">Policy</a>.</p>
+            </div>
+        </div>
+    </div>
+
+</x-layouts.base>

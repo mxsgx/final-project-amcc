@@ -21,6 +21,7 @@ class Course extends Model
         'title',
         'subtitle',
         'description',
+        'thumbnail',
     ];
 
     public function instructors(): BelongsToMany

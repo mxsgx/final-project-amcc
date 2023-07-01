@@ -7,6 +7,7 @@ use App\Http\Requests\Instructor\CreateCourseRequest;
 use App\Http\Requests\Instructor\UpdateCourseRequest;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -17,9 +18,16 @@ class CourseController extends Controller
 
     public function create(CreateCourseRequest $request)
     {
-        $course = Course::create($request->safe()->toArray());
+        $course = Course::create($request->safe()->except('thumbnail'));
 
         $course->instructors()->sync($request->user());
+
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->storePublicly('images/courses');
+            $course->update([
+                'thumbnail' => $path,
+            ]);
+        }
 
         if ($request->user()->can('update', $course)) {
             return to_route('instructor.courses.edit', compact('course'));
@@ -38,6 +46,17 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course)
     {
         $course->update($request->safe()->toArray());
+
+        if ($request->hasFile('thumbnail')) {
+            $oldPath = $course->thumbnail;
+            $path = $request->file('thumbnail')->storePublicly('images/courses');
+
+            $course->update([
+                'thumbnail' => $path,
+            ]);
+
+            Storage::delete($oldPath);
+        }
 
         return to_route('instructor.courses.edit', compact('course'));
     }

@@ -25,6 +25,7 @@ class CreateCourseRequest extends FormRequest
             'title' => ['required', 'string'],
             'subtitle' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
+            'thumbnail' => ['nullable', 'image'],
         ];
     }
 }

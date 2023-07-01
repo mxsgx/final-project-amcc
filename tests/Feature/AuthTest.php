@@ -26,7 +26,6 @@ class AuthTest extends TestCase
             'email' => $this->faker->email,
             'password' => 'password',
             'password_confirmation' => 'password',
-            'agreement' => true,
         ]);
 
         $response->assertRedirect();
