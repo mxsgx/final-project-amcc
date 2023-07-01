@@ -33,7 +33,7 @@
             </div>
             <div class="w-full lg:w-1/2">
                 <blockquote
-                    class="flex items-center justify-between w-full col-span-1 p-6 bg-white rounded-lg shadow"
+                    class="flex lg:flex-row flex-col-reverse gap-y-8 items-center justify-between w-full col-span-1 p-6 bg-white rounded-lg shadow"
                     data-rounded="rounded-lg"
                     data-rounded-max="rounded-full"
                 >
@@ -67,13 +67,13 @@
                         </h3>
                     </div>
                     <img
-                        class="flex-shrink-0 w-20 h-20 bg-gray-300 rounded-full xl:w-24 xl:h-24"
+                        class="flex-shrink-0 w-20 h-20 bg-gray-300 rounded-full none xl:w-24 xl:h-24"
                         src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
                         alt=""
                     />
                 </blockquote>
                 <blockquote
-                    class="flex items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow"
+                    class="flex lg:flex-row flex-col-reverse gap-y-8 items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow"
                     data-rounded="rounded-lg"
                     data-rounded-max="rounded-full"
                 >
@@ -113,7 +113,7 @@
                     />
                 </blockquote>
                 <blockquote
-                    class="flex items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow"
+                    class="flex lg:flex-row flex-col-reverse gap-y-8 items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow"
                     data-rounded="rounded-lg"
                     data-rounded-max="rounded-full"
                 >
