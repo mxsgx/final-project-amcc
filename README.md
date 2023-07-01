@@ -77,6 +77,19 @@ _Coming soon_
 
 Please see [Laravel Sail documentation](https://laravel.com/docs/10.x/sail) for more information.
 
+## Others
+
+### Credentials
+
+- Super Admin (`super.admin@gmail.com` / `password`)
+- Admin (`admin@gmail.com` / `password`)
+
+### URLs
+
+- Admin Dashboard (`http://admin.localhost`)
+- Instructor Dashboard (`http://instructor.localhost`)
+- Application (`http://localhost`)
+
 ## Code Formatter
 
 ```shell
