@@ -81,8 +81,8 @@ Please see [Laravel Sail documentation](https://laravel.com/docs/10.x/sail) for 
 
 ### Credentials
 
-- Super Admin (`super.admin@gmail.com` / `password`)
-- Admin (`admin@gmail.com` / `password`)
+- Super Admin (`super.admin@mahaakses.id` / `password`)
+- Admin (`admin@mahaakses.id` / `password`)
 
 ### URLs
 
