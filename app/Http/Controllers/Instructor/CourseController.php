@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Instructor;
 
+use App\Enums\CourseUserRelation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Instructor\CreateCourseRequest;
 use App\Http\Requests\Instructor\UpdateCourseRequest;
@@ -11,9 +12,14 @@ use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
-    public function showIndexPage()
+    public function showIndexPage(Request $request)
     {
-        return view('instructor.courses.index');
+        $courses = Course::whereHas('instructors', function ($query) use ($request) {
+            $query->where('user_id', '=', $request->user()->id)
+                ->where('relation', '=', CourseUserRelation::Instructor);
+        })->cursorPaginate(16);
+
+        return view('instructor.courses.index', compact('courses'));
     }
 
     public function create(CreateCourseRequest $request)

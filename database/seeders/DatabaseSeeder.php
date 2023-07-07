@@ -91,8 +91,8 @@ class DatabaseSeeder extends Seeder
             ], $category);
         }
 
-        Course::factory(48)->hasAttached(User::factory(1)->afterCreating(function (User $user) {
+        User::factory(100)->afterCreating(function (User $user) {
             $user->assignRole(UserRole::Instructor);
-        }), ['relation' => CourseUserRelation::Instructor], 'instructors')->hasAttached(Category::factory(1), relationship: 'categories')->hasLectures(8)->create();
+        })->hasAttached(Course::factory(25)->hasAttached(Category::factory(1), relationship: 'categories')->hasLectures(8), ['relation' => CourseUserRelation::Instructor], 'teachingCourses')->create();
     }
 }

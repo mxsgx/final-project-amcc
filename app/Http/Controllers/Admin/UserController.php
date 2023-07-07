@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function showIndexPage(Request $request)
     {
-        $users = User::paginate();
+        $users = User::cursorPaginate(25);
 
         return view('admin.users.index', compact('users'));
     }

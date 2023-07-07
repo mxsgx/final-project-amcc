@@ -8,7 +8,7 @@ class CourseController extends Controller
 {
     public function showIndexPage()
     {
-        $courses = Course::paginate(10);
+        $courses = Course::cursorPaginate(25);
 
         return view('courses.index', compact('courses'));
     }
