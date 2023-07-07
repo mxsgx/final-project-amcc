@@ -1,5 +1,5 @@
 <section
-    class="flex items-center justify-center py-16 min-w-screen"
+    class="d-block md:flex items-center justify-center py-16 min-w-screen"
     data-aos="fade-up"
     data-aos-anchor-placement="top-bottom"
 >
