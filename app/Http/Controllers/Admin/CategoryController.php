@@ -52,7 +52,7 @@ class CategoryController extends Controller
         $category->forceDelete();
 
         if ($request->user()->can('viewAny', Category::class)) {
-            return to_route('admin.users.index');
+            return to_route('admin.categories.index');
         }
 
         return to_route('root');

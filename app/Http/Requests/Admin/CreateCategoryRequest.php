@@ -24,7 +24,7 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'slug' => ['nullable', 'string', 'unique:App\Models\Category'],
+            'slug' => ['nullable', 'string', 'regex:/^([a-z\-]+)$/i', 'unique:App\Models\Category'],
             'description' => ['nullable', 'string'],
         ];
     }
