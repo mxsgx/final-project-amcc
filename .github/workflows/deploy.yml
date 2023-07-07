@@ -15,12 +15,15 @@ jobs:
         check-name: 'Execute tests (Unit and Feature tests) via PHPUnit'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         wait-interval: 10
-    - uses: lewagon/wait-on-check-action@v1.3.1
+        allowed-conclusions: success
+    - name: Wait for code style fixed
+      uses: lewagon/wait-on-check-action@v1.3.1
       with:
         ref: ${{ github.ref }}
         check-name: 'Commit changes'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         wait-interval: 10
+        allowed-conclusions: success
     - name: Deploy
       uses: appleboy/ssh-action@v0.1.10
       env:
