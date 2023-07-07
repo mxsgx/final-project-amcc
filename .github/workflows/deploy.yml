@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: appleboy/ssh-action@v0.1.10
+      env:
+        REPOSITORY_PATH: ${{ vars.REPOSITORY_PATH }}
+        PUBLIC_PATH: ${{ vars.PUBLIC_PATH }}
       with:
         host: ${{ secrets.HOST }}
         port: ${{ secrets.PORT }}
