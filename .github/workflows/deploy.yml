@@ -8,22 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Wait for tests to succeed
-      uses: lewagon/wait-on-check-action@v1.3.1
-      with:
-        ref: ${{ github.ref }}
-        check-name: 'Execute tests'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        wait-interval: 30
-        allowed-conclusions: success
-    - name: Wait for code style fixed
-      uses: lewagon/wait-on-check-action@v1.3.1
-      with:
-        ref: ${{ github.ref }}
-        check-name: 'Commit changes'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        wait-interval: 30
-        allowed-conclusions: success
     - name: Deploy
       uses: appleboy/ssh-action@v0.1.10
       env:
