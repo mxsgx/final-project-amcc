@@ -16,6 +16,7 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         envs: REPOSITORY_PATH,PUBLIC_PATH
+        script_stop: true
         script: |
           cd $REPOSITORY_PATH
           git pull
