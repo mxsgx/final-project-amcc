@@ -12,7 +12,7 @@ jobs:
       uses: lewagon/wait-on-check-action@v1.3.1
       with:
         ref: ${{ github.ref }}
-        check-name: 'Execute tests (Unit and Feature tests) via PHPUnit'
+        check-name: 'Execute tests'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         wait-interval: 10
         allowed-conclusions: success
