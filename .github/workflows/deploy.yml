@@ -15,5 +15,10 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
+        envs: REPOSITORY_PATH,PUBLIC_PATH
         script: |
-          whoami
+          cd $REPOSITORY_PATH
+          git pull
+          rm -rf $PUBLIC_PATH/build
+          cp -R $REPOSITORY_PATH/public/build $PUBLIC_PATH/build
+          php artisan optimize:clear
