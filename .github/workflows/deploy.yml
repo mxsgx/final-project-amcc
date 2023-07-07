@@ -14,7 +14,7 @@ jobs:
         ref: ${{ github.ref }}
         check-name: 'Execute tests'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        wait-interval: 10
+        wait-interval: 30
         allowed-conclusions: success
     - name: Wait for code style fixed
       uses: lewagon/wait-on-check-action@v1.3.1
@@ -22,7 +22,7 @@ jobs:
         ref: ${{ github.ref }}
         check-name: 'Commit changes'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        wait-interval: 10
+        wait-interval: 30
         allowed-conclusions: success
     - name: Deploy
       uses: appleboy/ssh-action@v0.1.10
