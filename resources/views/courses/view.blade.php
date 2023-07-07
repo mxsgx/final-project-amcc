@@ -60,7 +60,7 @@
                 </div>
             @endif
 
-            @if(Auth::user()->learningCourses->doesntContain('id', '=', $course->id))
+            @if(Auth::user() && Auth::user()->learningCourses->doesntContain('id', '=', $course->id))
                 @can('enroll', $course)
                     <form
                         action="{{ route('course.enroll', compact('course')) }}"
@@ -68,13 +68,13 @@
                         class="container max-w-sm mx-auto mt-px text-left sm:max-w-md md:max-w-lg sm:px-4 md:max-w-none md:text-center mb-16">
                         <div
                             class="flex flex-col items-center justify-center mt-8 space-y-4 text-center sm:flex-row sm:space-y-0 sm:space-x-4">
-                <span class="relative inline-flex w-full md:w-auto">
-                    @csrf
-                    <button type="submit"
-                            class="inline-flex items-center justify-center w-full px-8 py-4 text-base font-medium leading-6 text-white bg-rose-500 border border-transparent rounded-full xl:px-10 md:w-auto hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-600">
-                        Enroll Now
-                    </button>
-                </span>
+                            <span class="relative inline-flex w-full md:w-auto">
+                                @csrf
+                                <button type="submit"
+                                        class="inline-flex items-center justify-center w-full px-8 py-4 text-base font-medium leading-6 text-white bg-rose-500 border border-transparent rounded-full xl:px-10 md:w-auto hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-600">
+                                    Enroll Now
+                                </button>
+                            </span>
                         </div>
                     </form>
                 @endcan
